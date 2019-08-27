@@ -53,5 +53,11 @@ namespace TaiTruyen_V4
         {
             this.TextBox_Result.Clear();
         }
+
+        private void Button_AddAtt_Click(object sender, RoutedEventArgs e)
+        {
+            Window_Add_Att subWindow = new Window_Add_Att();
+            subWindow.Show();
+        }
     }
 }
