@@ -28,6 +28,7 @@ namespace TaiTruyen_V4
         {
 
         }
+        private TagPage TAG;
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
@@ -62,6 +63,26 @@ namespace TaiTruyen_V4
             this.comboBox_Att_Type_Get.Items.Insert(Web_Document.AttType_Href, "Href");
             this.comboBox_Att_Type_Get.Items.Insert(Web_Document.AttType_Style, "Style");
 
+            TAG = new TagPage();
+           
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            int index = this.comboBox_Tag.SelectedIndex;
+            String test = index.ToString();
+            TAG.Type[index] = (Int16) this.comboBox_Type.SelectedIndex;
+            TAG.Name[index]= this.textBox_Name.Text;
+            //TAG.TypeToGet[index] = (Int16)this.comboBox_TypeToGet.SelectedIndex;
+            //TAG.Index[index] = Int16.Parse(this.textBox_Index.Text.ToString());
+            TAG.AttTypeToCompare[index] = (Int16) this.comboBox_Att_Type_Compare.SelectedIndex;
+            //TAG.StrCompare[index] = this.textBox_StrToCompare.Text;
+            //TAG.AttTypeToGet[index] = (Int16)this.comboBox_Att_Type_Get.SelectedIndex;
+            this.TextBox_Result.Text = this.Tag.ToString()+TAG.Type[index];
+
+
+            
         }
     }
 }

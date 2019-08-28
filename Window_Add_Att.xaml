@@ -5,26 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaiTruyen_V4"
         mc:Ignorable="d"
-        Title="Window_Add_Att" Height="450" Width="800">
-    <Grid Loaded="Grid_Loaded">
+        Title="Window_Add_Att" Height="450" Width="1079">
+    <Grid Loaded="Grid_Loaded" Margin="0,0,0,-3">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Label x:Name="label" Content="Type:" HorizontalAlignment="Left" Margin="26,53,0,0" VerticalAlignment="Top" Width="132"/>
-        <TextBox x:Name="textBox_Copy" HorizontalAlignment="Left" Height="23" Margin="163,102,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="254"/>
+        <TextBox x:Name="textBox_Name" HorizontalAlignment="Left" Height="23" Margin="163,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="254"/>
         <Label x:Name="label_Copy" Content="Name:" HorizontalAlignment="Left" Margin="26,98,0,0" VerticalAlignment="Top" Width="132"/>
         <Label x:Name="label_Copy1" Content="Type to get:" HorizontalAlignment="Left" Margin="26,140,0,0" VerticalAlignment="Top" Width="132"/>
-        <TextBox x:Name="textBox_Copy2" HorizontalAlignment="Left" Height="23" Margin="163,184,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="254"/>
+        <TextBox x:Name="textBox_Index" HorizontalAlignment="Left" Height="23" Margin="163,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="254"/>
         <Label x:Name="label_Copy2" Content="Index:" HorizontalAlignment="Left" Margin="26,180,0,0" VerticalAlignment="Top" Width="132"/>
-        <TextBox x:Name="textBox_Copy3" HorizontalAlignment="Left" Height="23" Margin="163,248,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="254"/>
+        <TextBox x:Name="textBox_StrToCompare" HorizontalAlignment="Left" Height="23" Margin="163,248,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="254"/>
         <Label x:Name="label_Copy3" Content="Str compare:" HorizontalAlignment="Left" Margin="26,244,0,0" VerticalAlignment="Top" Width="132"/>
         <Label x:Name="label_Copy4" Content="Att Type Compare:" HorizontalAlignment="Left" Margin="26,213,0,0" VerticalAlignment="Top" Width="132"/>
         <Label x:Name="label_Copy5" Content="Att Type Get:" HorizontalAlignment="Left" Margin="26,288,0,0" VerticalAlignment="Top" Width="132"/>
-        <ComboBox x:Name="comboBox_Type" HorizontalAlignment="Left" Margin="163,57,0,0" VerticalAlignment="Top" Width="254"/>
-        <ComboBox x:Name="comboBox_TypeToGet" HorizontalAlignment="Left" Margin="163,140,0,0" VerticalAlignment="Top" Width="254"/>
-        <ComboBox x:Name="comboBox_Att_Type_Compare" HorizontalAlignment="Left" Margin="163,217,0,0" VerticalAlignment="Top" Width="254"/>
-        <ComboBox x:Name="comboBox_Att_Type_Get" HorizontalAlignment="Left" Margin="163,292,0,0" VerticalAlignment="Top" Width="254"/>
+        <ComboBox x:Name="comboBox_Type" HorizontalAlignment="Left" Margin="163,57,0,0" VerticalAlignment="Top" Width="254" SelectedIndex="0"/>
+        <ComboBox x:Name="comboBox_TypeToGet" HorizontalAlignment="Left" Margin="163,140,0,0" VerticalAlignment="Top" Width="254" SelectedIndex="0"/>
+        <ComboBox x:Name="comboBox_Att_Type_Compare" HorizontalAlignment="Left" Margin="163,217,0,0" VerticalAlignment="Top" Width="254" SelectedIndex="0"/>
+        <ComboBox x:Name="comboBox_Att_Type_Get" HorizontalAlignment="Left" Margin="163,292,0,0" VerticalAlignment="Top" Width="254" SelectedIndex="0"/>
         <Label x:Name="label_Copy6" Content="Tag:" HorizontalAlignment="Left" Margin="26,16,0,0" VerticalAlignment="Top" Width="132"/>
-        <ComboBox x:Name="comboBox_Tag" HorizontalAlignment="Left" Margin="163,20,0,0" VerticalAlignment="Top" Width="254" SelectionChanged="ComboBox_Copy3_SelectionChanged"/>
+        <ComboBox x:Name="comboBox_Tag" HorizontalAlignment="Left" Margin="163,20,0,0" VerticalAlignment="Top" Width="254" SelectionChanged="ComboBox_Copy3_SelectionChanged" SelectedIndex="0"/>
+        <TextBox x:Name="TextBox_Result" Height="392" Margin="432,20,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="26,345,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
     </Grid>
 </Window>

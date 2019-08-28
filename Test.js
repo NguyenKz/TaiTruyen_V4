@@ -1,0 +1,2 @@
+{"Host":"Wikidich","Type":[0,0,1,0],"Name":["book-title","book-title","bookContentBody","btn-bot"],"TypeToGet":[0,0,0,1],"Index":[0,1,0,0],"AttTypeToCompare":[0,0,0,4],"StrCompare":[" "," "," ","margin-left: 0.3rem; display: inline-block; margin-right: 1rem"],"AttTypeToGet":[0,0,1,3]}
+{"Host":"hAHA","Type":[0,0,1,0],"Name":["book-title","book-title","bookContentBody","btn-bot"],"TypeToGet":[0,0,0,1],"Index":[0,1,0,0],"AttTypeToCompare":[0,0,0,4],"StrCompare":[" "," "," ","margin-left: 0.3rem; display: inline-block; margin-right: 1rem"],"AttTypeToGet":[0,0,1,3]}
