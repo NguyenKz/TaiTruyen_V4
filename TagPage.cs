@@ -24,6 +24,7 @@ namespace TaiTruyen_V4
             attTypeToCompare=new Int16[5];
             strCompare=new string[5];
             attTypeToGet=new Int16[5];
+            name = new string[5];
         }
         public string Host { get => host; set => host = value; }
         public short[] Type { get => type; set => type = value; }

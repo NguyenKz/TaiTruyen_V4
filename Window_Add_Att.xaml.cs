@@ -32,36 +32,35 @@ namespace TaiTruyen_V4
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            this.comboBox_Tag.Items.Insert(Web_Document.IndexOfArray_BookName, "BookName");
-            this.comboBox_Tag.Items.Insert(Web_Document.IndexOfArray_ChapName, "ChapName");
-            this.comboBox_Tag.Items.Insert(Web_Document.IndexOfArray_ChapContent, "ChapContent");
-            this.comboBox_Tag.Items.Insert(Web_Document.IndexOfArray_UrlNext, "UrlNext");
+            this.comboBox_Tag.Items.Add(new ItemComboBox(Web_Document.IndexOfArray_BookName, "BookName"));
+            this.comboBox_Tag.Items.Add(new ItemComboBox(Web_Document.IndexOfArray_ChapName, "ChapName"));
+            this.comboBox_Tag.Items.Add(new ItemComboBox(Web_Document.IndexOfArray_ChapContent, "ChapContent"));
+            this.comboBox_Tag.Items.Add(new ItemComboBox(Web_Document.IndexOfArray_UrlNext, "UrlNext"));
 
 
 
-            this.comboBox_Type.Items.Insert(Web_Document.Type_Class,"Class");
-            this.comboBox_Type.Items.Insert(Web_Document.Type_Id, "Id");
-            this.comboBox_Type.Items.Insert(Web_Document.Type_Tag, "Tag");
+            this.comboBox_Type.Items.Add(new ItemComboBox(Web_Document.Type_Class,"Class"));
+            this.comboBox_Type.Items.Add(new ItemComboBox(Web_Document.Type_Id, "Id"));
+            this.comboBox_Type.Items.Add(new ItemComboBox(Web_Document.Type_Tag, "Tag"));
+                                  
+            this.comboBox_TypeToGet.Items.Add(new ItemComboBox(Web_Document.Get_With_Index, "Index"));
+            this.comboBox_TypeToGet.Items.Add(new ItemComboBox(Web_Document.Get_With_Value, "Value"));
 
-            this.comboBox_TypeToGet.Items.Insert(Web_Document.Get_With_Index, "Index");
-            this.comboBox_TypeToGet.Items.Insert(Web_Document.Get_With_Value, "Value");
 
-            
-            
 
-            
 
-            this.comboBox_Att_Type_Compare.Items.Insert(Web_Document.AttType_InnterText, "InnerText");
-            this.comboBox_Att_Type_Compare.Items.Insert(Web_Document.AttType_InnerHtml, "InnerHtml");
-            this.comboBox_Att_Type_Compare.Items.Insert(Web_Document.AttType_Src, "Src");
-            this.comboBox_Att_Type_Compare.Items.Insert(Web_Document.AttType_Href, "Href");
-            this.comboBox_Att_Type_Compare.Items.Insert(Web_Document.AttType_Style, "Style");
+           
+            this.comboBox_Att_Type_Compare.Items.Add(new ItemComboBox(Web_Document.AttType_InnterText, "InnerText"));
+            this.comboBox_Att_Type_Compare.Items.Add(new ItemComboBox(Web_Document.AttType_InnerHtml, "InnerHtml"));
+            this.comboBox_Att_Type_Compare.Items.Add(new ItemComboBox(Web_Document.AttType_Src, "Src"));
+            this.comboBox_Att_Type_Compare.Items.Add(new ItemComboBox(Web_Document.AttType_Href, "Href"));
+            this.comboBox_Att_Type_Compare.Items.Add(new ItemComboBox(Web_Document.AttType_Style, "Style"));
 
-            this.comboBox_Att_Type_Get.Items.Insert(Web_Document.AttType_InnterText, "InnerText");
-            this.comboBox_Att_Type_Get.Items.Insert(Web_Document.AttType_InnerHtml, "InnerHtml");
-            this.comboBox_Att_Type_Get.Items.Insert(Web_Document.AttType_Src, "Src");
-            this.comboBox_Att_Type_Get.Items.Insert(Web_Document.AttType_Href, "Href");
-            this.comboBox_Att_Type_Get.Items.Insert(Web_Document.AttType_Style, "Style");
+            this.comboBox_Att_Type_Get.Items.Add(new ItemComboBox(Web_Document.AttType_InnterText, "InnerText"));
+            this.comboBox_Att_Type_Get.Items.Add(new ItemComboBox(Web_Document.AttType_InnerHtml, "InnerHtml"));
+            this.comboBox_Att_Type_Get.Items.Add(new ItemComboBox(Web_Document.AttType_Src, "Src"));
+            this.comboBox_Att_Type_Get.Items.Add(new ItemComboBox(Web_Document.AttType_Href, "Href"));
+            this.comboBox_Att_Type_Get.Items.Add(new ItemComboBox(Web_Document.AttType_Style, "Style"));
 
             TAG = new TagPage();
            
@@ -70,19 +69,50 @@ namespace TaiTruyen_V4
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            int index = this.comboBox_Tag.SelectedIndex;
-            String test = index.ToString();
-            TAG.Type[index] = (Int16) this.comboBox_Type.SelectedIndex;
-            TAG.Name[index]= this.textBox_Name.Text;
-            //TAG.TypeToGet[index] = (Int16)this.comboBox_TypeToGet.SelectedIndex;
-            //TAG.Index[index] = Int16.Parse(this.textBox_Index.Text.ToString());
-            TAG.AttTypeToCompare[index] = (Int16) this.comboBox_Att_Type_Compare.SelectedIndex;
-            //TAG.StrCompare[index] = this.textBox_StrToCompare.Text;
-            //TAG.AttTypeToGet[index] = (Int16)this.comboBox_Att_Type_Get.SelectedIndex;
-            this.TextBox_Result.Text = this.Tag.ToString()+TAG.Type[index];
-
-
+            int index = (this.comboBox_Tag.SelectedItem as ItemComboBox).Value;
+            String test = (this.comboBox_Tag.SelectedItem.ToString());
             
+            TAG.Type[index]= (this.comboBox_Type.SelectedItem as ItemComboBox).Value;
+            test += "  " + TAG.Type[index];
+
+            TAG.Name[index] = this.TextBox_Name.Text;
+            test += "  " + TAG.Name[index];
+
+            TAG.TypeToGet[index]= (this.comboBox_TypeToGet.SelectedItem as ItemComboBox).Value;
+            test += "  " + TAG.TypeToGet[0];
+
+            TAG.Index[index] = Int16.Parse(this.textBox_Index.Text);
+            test += "  " + TAG.Index[index];
+
+            TAG.StrCompare[index] = this.textBox_StrToCompare.Text;
+            test += "  " + TAG.StrCompare[index];
+
+            TAG.AttTypeToCompare[index]= (this.comboBox_Att_Type_Compare.SelectedItem as ItemComboBox).Value;
+            test += "  " + TAG.AttTypeToCompare[index];
+
+            TAG.AttTypeToGet[index] = (this.comboBox_Att_Type_Get.SelectedItem as ItemComboBox).Value;
+            test += "  " + TAG.AttTypeToGet[index];
+
+
+
+            this.TextBox_Result.Text +=Environment.NewLine+ test;
+        }
+    }
+    class ItemComboBox {
+        String str;
+        Int16 value;
+        public ItemComboBox( Int16 value,String str)
+        {
+            this.str = str;
+            this.value = value;
+        }
+
+        public string Str { get => str; set => str = value; }
+        public short Value { get => value; set => this.value = value; }
+
+        public override string ToString()
+        {
+            return str;
         }
     }
 }
