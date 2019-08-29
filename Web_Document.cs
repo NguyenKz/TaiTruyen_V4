@@ -121,16 +121,16 @@ namespace TaiTruyen_V4
         /// <summary>
         /// list host: wikidich, truyenfull, truyencuatui...
         /// </summary>
-        private Tag ListHost;
+        private ListHost ListHost;
         public Web_Document(String Host) {  
             Init();
             //strInfo[IndexOfArray_Host] = Host;
         }
         /// <summary>
-        /// add list host (Tag) to Web Document
+        /// add list host (ListHost) to Web Document
         /// </summary>
-        /// <param name="listHost">list host in Tag</param>
-        public void IntListHost(Tag listHost)
+        /// <param name="listHost">list host in ListHost</param>
+        public void IntListHost(ListHost listHost)
         {
             
             this.ListHost = listHost;
@@ -511,7 +511,7 @@ namespace TaiTruyen_V4
                     //Console.WriteLine("Class name.");
                     return GetElementByClassName(name, document);
                 case Web_Document.Type_Tag:
-                    //Console.WriteLine("Tag name.");
+                    //Console.WriteLine("ListHost name.");
                     return GetElementByTagName(name, document);
                 case Web_Document.Type_Id:
                     //Console.WriteLine("id.");

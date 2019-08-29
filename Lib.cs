@@ -17,7 +17,7 @@ namespace TaiTruyen_V4
     public class Lib
     {
 
-        public static Boolean WriteListHostToFile(Tag listHost,String filePath) {
+        public static Boolean WriteListHostToFile(ListHost listHost,String filePath) {
 
             if (listHost == null)
             {
@@ -50,21 +50,21 @@ namespace TaiTruyen_V4
             
         }
         /// <summary>
-        /// Load Json file To object Tag
+        /// Load Json file To object ListHost
         /// </summary>
         /// <param name="path">FilePath of json File</param>
-        /// <returns>Tag</returns>
-        public static Tag LoadJsonFileToTag(String path)
+        /// <returns>ListHost</returns>
+        public static ListHost LoadJsonFileToListHost(String path)
         {
             if (!File.Exists(path))
             {
                 Console.WriteLine("file path not exits");
                 return null;
             }
-            String j = Lib.ReadFile(path);
-            Console.WriteLine(j);
+            String StrJson = Lib.ReadFile(path);
+            //Console.WriteLine(j);
             //// Needs a reference to "System.Runtime.Serialization"
-            Tag rootObject = new JavaScriptSerializer().Deserialize<Tag>(j);        
+            ListHost rootObject = new JavaScriptSerializer().Deserialize<ListHost>(StrJson);        
             
             return rootObject;
 

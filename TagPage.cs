@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TaiTruyen_V4
 {
-    public class TagPage
+    public class HostTag
     {
         private string host;
         private Int16[] type;
@@ -16,7 +16,7 @@ namespace TaiTruyen_V4
         private Int16[] attTypeToCompare;
         private string[] strCompare;
         private Int16[] attTypeToGet;
-        public TagPage()
+        public HostTag()
         {
             type = new Int16[5];
             typeToGet=new Int16[5];
@@ -37,14 +37,14 @@ namespace TaiTruyen_V4
      
     }
 
-    public class Tag
+    public class ListHost
     {
         
-        public List<TagPage> tag { get; set; }
+        public List<HostTag> tag { get; set; }
 
-        public Tag()
+        public ListHost()
         {
-            this.tag = new List<TagPage>();
+            this.tag = new List<HostTag>();
         }
     }
 }

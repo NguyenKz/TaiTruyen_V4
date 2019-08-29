@@ -73,11 +73,11 @@ namespace TaiTruyen_V4
 
 
 
-            Tag hh = new Tag();
+            ListHost hh = new ListHost();
 
 
 
-            TagPage test = new TagPage();
+            HostTag test = new HostTag();
             test.Host = "Wikidich";
             test.Type = new Int16[] { Web_Document.Type_Class, Web_Document.Type_Class, Web_Document.Type_Id, Web_Document.Type_Class };
             test.AttStrName = new string[] { "book-title", "book-title", "bookContentBody", "btn-bot" };
@@ -90,7 +90,7 @@ namespace TaiTruyen_V4
 
          
 
-            test = new TagPage();
+            test = new HostTag();
             test.Host = "haha";
             test.Type = new Int16[] { Web_Document.Type_Class, Web_Document.Type_Class, Web_Document.Type_Id, Web_Document.Type_Class };
             test.AttStrName = new string[] { "dsafsd", "book-title", "bookContentBody", "btn-bot" };
@@ -101,13 +101,13 @@ namespace TaiTruyen_V4
             test.AttTypeToGetStr = new short[] { Web_Document.AttType_InnterText, Web_Document.AttType_InnterText, Web_Document.AttType_InnerHtml, Web_Document.AttType_Href };
             hh.tag.Add(test);
 
-            Lib.WriteListHostToFile(hh,"host.json");
+            //Lib.WriteListHostToFile(hh,"host.json");
             
 
-            Tag hhh = new Tag();
-            hhh = Lib.LoadJsonFileToTag("host.json");
+            ListHost hhh = new ListHost();
+            hhh = Lib.LoadJsonFileToListHost("host.json");
 
-            String ou= JsonConvert.SerializeObject(hhh, Formatting.Indented).ToString();
+           // String ou= JsonConvert.SerializeObject(hhh, Formatting.Indented).ToString();
 
 
             foreach (var aa in hhh.tag)

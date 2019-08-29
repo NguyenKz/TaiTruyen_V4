@@ -28,7 +28,7 @@ namespace TaiTruyen_V4
         {
 
         }
-        private TagPage TAG;
+        private HostTag TAG;
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
@@ -41,7 +41,7 @@ namespace TaiTruyen_V4
 
             this.comboBox_Type.Items.Add(new ItemComboBox(Web_Document.Type_Class,"Class"));
             this.comboBox_Type.Items.Add(new ItemComboBox(Web_Document.Type_Id, "Id"));
-            this.comboBox_Type.Items.Add(new ItemComboBox(Web_Document.Type_Tag, "Tag"));
+            this.comboBox_Type.Items.Add(new ItemComboBox(Web_Document.Type_Tag, "ListHost"));
                                   
             this.comboBox_TypeToGet.Items.Add(new ItemComboBox(Web_Document.Get_With_Index, "IndexInElement"));
             this.comboBox_TypeToGet.Items.Add(new ItemComboBox(Web_Document.Get_With_Value, "Value"));
@@ -62,7 +62,7 @@ namespace TaiTruyen_V4
             this.comboBox_Att_Type_Get.Items.Add(new ItemComboBox(Web_Document.AttType_Href, "Href"));
             this.comboBox_Att_Type_Get.Items.Add(new ItemComboBox(Web_Document.AttType_Style, "Style"));
 
-            TAG = new TagPage();
+            TAG = new HostTag();
            
 
         }
