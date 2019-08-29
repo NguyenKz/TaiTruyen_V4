@@ -62,7 +62,7 @@
     </ApplicationDefinition>
     <Compile Include="GetData.cs" />
     <Compile Include="Lib.cs" />
-    <Compile Include="TagPage.cs" />
+    <Compile Include="Host.cs" />
     <Compile Include="Web_Document.cs" />
     <Compile Include="Window_Add_Att.xaml.cs">
       <DependentUpon>Window_Add_Att.xaml</DependentUpon>
