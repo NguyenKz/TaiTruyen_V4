@@ -189,7 +189,11 @@ namespace TaiTruyen_V4
 
             return false;
         }
-
+        /// <summary>
+        /// Update document with new url
+        /// </summary>
+        /// <param name="Url">new url</param>
+        /// <returns> false if have error</returns>
         public bool UpdateDocumentWithNewUrl(String Url)
         {
             if (!CheckUrl(Url))
@@ -208,7 +212,10 @@ namespace TaiTruyen_V4
 
             return true;
         }
-
+        /// <summary>
+        /// Check site init 
+        /// </summary>
+        /// <returns>false when have error</returns>
         public bool CheckInitSite() {
             String Check = GetContentInDocument(IndexOfArray_BookName);
             if (Check.IndexOf(Web_Document.StrErro) >= 0)
@@ -326,7 +333,7 @@ namespace TaiTruyen_V4
         /// get content
         /// </summary>
         /// <param name="Type">bookname, chapname, url ....</param>
-        /// <returns></returns>
+        /// <returns>String content</returns>
         public String GetContentInDocument(Int16 Type) {
             Console.WriteLine("Get Content " + Type);
             Int16 index = Type;
