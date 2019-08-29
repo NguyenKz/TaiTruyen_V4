@@ -28,7 +28,7 @@ namespace TaiTruyen_V4
 
         public const Int16 SizeOfArray = 6;
         /// <summary>
-        /// Define Index Of Array
+        /// Define IndexInElement Of Array
         /// </summary>
         public const Int16 IndexOfArray_BookName = 0;
         public const Int16 IndexOfArray_ChapName = 1;
@@ -43,10 +43,10 @@ namespace TaiTruyen_V4
         public const Int16 Get_With_Index = 0;
         public const Int16 Get_With_Value = 1;
 
-        /// <summary>
-        /// BookName, ChapName, ChapContent, Url...
-        /// </summary>
-        private String[] strInfo;
+        ///// <summary>
+        ///// BookName, ChapName, ChapContent, Url...
+        ///// </summary>
+        //private String[] strInfo;
         /// <summary>
         /// Class name, id name, tagName, style...
         /// </summary>
@@ -64,7 +64,7 @@ namespace TaiTruyen_V4
         /// innerText, innerHtml...
         /// * when compare str to find element
         /// </summary>
-        private Int16[] attType;
+        private Int16[] attTypeToCompare;
         /// <summary>
         /// innerText, innerHtml...
         /// *to get str
@@ -77,17 +77,17 @@ namespace TaiTruyen_V4
         /// <summary>
         /// get with index or value
         /// </summary>
-        private Int16[] TypeGet;
+        private Int16[] typeToGet;
 
         ///
-        /// temps=GetElements(document,type[x],attStrName[x]); // get elements in document with type (id, class or tag...) and name is attStrName
+        /// temps=GetElements(document,type[x],AttStrName[x]); // get elements in document with type (id, class or tag...) and name is AttStrName
         /// 
-        /// /// get with index TypeGet[x]=getWithIndex
-        /// temp=temps[indexInElement[x]];
-        /// /// get with value TypeGet[x]=getWithvalue
+        /// /// get with index typeToGet[x]=getWithIndex
+        /// temp=temps[IndexInElement[x]];
+        /// /// get with value typeToGet[x]=getWithvalue
         /// 
         /// foreach(var e in temps){
-        ///     String value=GetValueOfElement(e,attType[x]);   // ex: GetValue(e, attType[IndexOfArray_BookName])          (attType[IndexOfArray_BookName]=InnerText) ="Chuong sau";
+        ///     String value=GetValueOfElement(e,attTypeToCompare[x]);   // ex: GetValue(e, attTypeToCompare[IndexOfArray_BookName])          (attTypeToCompare[IndexOfArray_BookName]=InnerText) ="Chuong sau";
         ///     if (value.indexOf(attValue[x])>=0){    //ex: attValue[x] is style="height: auto !important;", value= "height: auto !important;"
         ///         temp=e;
         ///         break;
@@ -118,26 +118,77 @@ namespace TaiTruyen_V4
         /// define time get document again when get fail. 
         /// </summary>
         public const Int16 NumberCheckToStopGetData = 20;
-
-
+        /// <summary>
+        /// list host: wikidich, truyenfull, truyencuatui...
+        /// </summary>
+        private Tag ListHost;
         public Web_Document(String Host) {  
             Init();
-            strInfo[IndexOfArray_Host] = Host;
+            //strInfo[IndexOfArray_Host] = Host;
+        }
+        /// <summary>
+        /// add list host (Tag) to Web Document
+        /// </summary>
+        /// <param name="listHost">list host in Tag</param>
+        public void IntListHost(Tag listHost)
+        {
+            
+            this.ListHost = listHost;
         }
         public void Init()
         {
             type = new Int16[SizeOfArray];
             attStrName = new String[SizeOfArray];
-            TypeGet = new Int16[SizeOfArray];
+            typeToGet = new Int16[SizeOfArray];
             indexInElement = new Int16[SizeOfArray];
-            attType = new Int16[SizeOfArray];
+            attTypeToCompare = new Int16[SizeOfArray];
             attValue = new String[SizeOfArray];
             attTypeToGetStr = new Int16[SizeOfArray];
-            strInfo = new string[SizeOfArray];
+            //strInfo = new string[SizeOfArray];
             HaveError = false;
         }
+        /// <summary>
+        /// detect host with url
+        /// </summary>
+        /// <param name="url">url to detect</param>
+        /// <returns>true found host</returns>
+
+        public bool DetectHost(String url) {
+
+            if (url.Length <= 0)
+            {
+                return false;
+            }
+            if (this.ListHost == null)
+            {
+                return false;
+            }
+            if (this.ListHost.tag == null)
+            {
+                return false;
+            }
+            foreach (var ee in ListHost.tag)
+            {
+                if (url.IndexOf(ee.Host) >= 0)
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        type[i] = ee.Type[i];
+                        attStrName[i] = ee.AttStrName[i];
+                        typeToGet[i] = ee.TypeToGet[i];
+                        indexInElement[i] = ee.IndexInElement[i];
+                        attTypeToCompare[i] = ee.AttTypeToCompare[i];
+                        attTypeToGetStr[i] = ee.AttTypeToGetStr[i];
 
 
+                    }
+                    return true;
+                }
+            }
+
+
+            return false;
+        }
 
         public bool UpdateDocumentWithNewUrl(String Url)
         {
@@ -262,9 +313,9 @@ namespace TaiTruyen_V4
         {
             this.type[index] = Type;
             this.attStrName[index] = attStrName;
-            this.TypeGet[index] = TypeGet;
+            this.typeToGet[index] = TypeGet;
             this.indexInElement[index] = indexInElement;
-            this.attType[index] = attType;
+            this.attTypeToCompare[index] = attType;
             this.attValue[index] = attValue;
             this.attTypeToGetStr[index] = attTypeToGetStr;
 
@@ -289,7 +340,7 @@ namespace TaiTruyen_V4
                 HaveError = true;
                 return StrErro+"  " + Type+" 1";
             }
-            switch (TypeGet[index]) {
+            switch (typeToGet[index]) {
                 case Web_Document.Get_With_Index:
                     temp = temps[indexInElement[index]];
                     
@@ -297,7 +348,7 @@ namespace TaiTruyen_V4
                 case Web_Document.Get_With_Value:
                     foreach(var e in temps)
                     {
-                        String value = GetValueOfElement(e, attType[index]);
+                        String value = GetValueOfElement(e, attTypeToCompare[index]);
                         
                         if (value.IndexOf(attValue[index]) >= 0) {
                             temp = e;

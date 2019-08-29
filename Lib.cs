@@ -16,6 +16,39 @@ namespace TaiTruyen_V4
 {
     public class Lib
     {
+
+        public static Boolean WriteListHostToFile(Tag listHost,String filePath) {
+
+            if (listHost == null)
+            {
+                return false;
+            }
+            if (listHost.tag == null)
+            {
+                return false;
+            }
+
+            String outPut=JsonConvert.SerializeObject(listHost, Formatting.Indented).ToString();
+
+            if (outPut.Length<=0)
+            {
+                return false;
+            }
+            if (!ValidateJSON(outPut))
+            {
+                return false;
+            }
+
+            
+
+            WriteFile(filePath, outPut);
+
+
+
+
+            return true;
+            
+        }
         /// <summary>
         /// Load Json file To object Tag
         /// </summary>

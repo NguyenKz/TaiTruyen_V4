@@ -43,7 +43,7 @@ namespace TaiTruyen_V4
             this.comboBox_Type.Items.Add(new ItemComboBox(Web_Document.Type_Id, "Id"));
             this.comboBox_Type.Items.Add(new ItemComboBox(Web_Document.Type_Tag, "Tag"));
                                   
-            this.comboBox_TypeToGet.Items.Add(new ItemComboBox(Web_Document.Get_With_Index, "Index"));
+            this.comboBox_TypeToGet.Items.Add(new ItemComboBox(Web_Document.Get_With_Index, "IndexInElement"));
             this.comboBox_TypeToGet.Items.Add(new ItemComboBox(Web_Document.Get_With_Value, "Value"));
 
 
@@ -75,14 +75,14 @@ namespace TaiTruyen_V4
             TAG.Type[index]= (this.comboBox_Type.SelectedItem as ItemComboBox).Value;
             test += "  " + TAG.Type[index];
 
-            TAG.Name[index] = this.TextBox_Name.Text;
-            test += "  " + TAG.Name[index];
+            TAG.AttStrName[index] = this.TextBox_Name.Text;
+            test += "  " + TAG.AttStrName[index];
 
             TAG.TypeToGet[index]= (this.comboBox_TypeToGet.SelectedItem as ItemComboBox).Value;
             test += "  " + TAG.TypeToGet[0];
 
-            TAG.Index[index] = Int16.Parse(this.textBox_Index.Text);
-            test += "  " + TAG.Index[index];
+            TAG.IndexInElement[index] = Int16.Parse(this.textBox_Index.Text);
+            test += "  " + TAG.IndexInElement[index];
 
             TAG.StrCompare[index] = this.textBox_StrToCompare.Text;
             test += "  " + TAG.StrCompare[index];
@@ -90,8 +90,8 @@ namespace TaiTruyen_V4
             TAG.AttTypeToCompare[index]= (this.comboBox_Att_Type_Compare.SelectedItem as ItemComboBox).Value;
             test += "  " + TAG.AttTypeToCompare[index];
 
-            TAG.AttTypeToGet[index] = (this.comboBox_Att_Type_Get.SelectedItem as ItemComboBox).Value;
-            test += "  " + TAG.AttTypeToGet[index];
+            TAG.AttTypeToGetStr[index] = (this.comboBox_Att_Type_Get.SelectedItem as ItemComboBox).Value;
+            test += "  " + TAG.AttTypeToGetStr[index];
 
 
 

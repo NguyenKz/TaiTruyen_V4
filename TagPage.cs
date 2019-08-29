@@ -28,21 +28,23 @@ namespace TaiTruyen_V4
         }
         public string Host { get => host; set => host = value; }
         public short[] Type { get => type; set => type = value; }
-        public string[] Name { get => name; set => name = value; }
+        public string[] AttStrName { get => name; set => name = value; }
         public short[] TypeToGet { get => typeToGet; set => typeToGet = value; }
-        public short[] Index { get => index; set => index = value; }
+        public short[] IndexInElement { get => index; set => index = value; }
         public short[] AttTypeToCompare { get => attTypeToCompare; set => attTypeToCompare = value; }
         public string[] StrCompare { get => strCompare; set => strCompare = value; }
-        public short[] AttTypeToGet { get => attTypeToGet; set => attTypeToGet = value; }
-        //private int n1;
-        //private int n2;
-
-        //public int N1 { get => n1; set => n1 = value; }
-        //public int N2 { get => n2; set => n2 = value; }
+        public short[] AttTypeToGetStr { get => attTypeToGet; set => attTypeToGet = value; }
+     
     }
 
     public class Tag
     {
+        
         public List<TagPage> tag { get; set; }
+
+        public Tag()
+        {
+            this.tag = new List<TagPage>();
+        }
     }
 }
