@@ -9,6 +9,7 @@ namespace TaiTruyen_V4
 {
     public class Web_Document
     {
+
         public const String StrErro= "%{E}+=.=+{r*R}{1998o}R}@";
         /// <summary>
         /// define Type
@@ -74,6 +75,9 @@ namespace TaiTruyen_V4
         /// "Chuong sau", "height: auto !important;", 1234, ....
         /// </summary>
         private String[] attValueStrToCompare;
+
+
+
         /// <summary>
         /// get with index or value
         /// </summary>
@@ -107,6 +111,10 @@ namespace TaiTruyen_V4
         /// Flag to check error
         /// </summary>
         public bool HaveError=false;
+
+        public const String filePathJson = "Host.json";
+
+        public String HostStr;
         /// <summary>
         /// get String document
         /// </summary>
@@ -190,6 +198,7 @@ namespace TaiTruyen_V4
                     for (Int16 i = 0; i < 4; i++)
                     {
                         SetData(i, ee.Type[i], ee.AttStrName[i], ee.TypeToGet[i], ee.IndexInElement[i], ee.AttTypeToCompare[i], ee.attValueStrToCompare[i], ee.AttTypeToGetStr[i]);
+                        this.HostStr = ee.Host;
                     }
                     return true;
                 }
@@ -207,6 +216,7 @@ namespace TaiTruyen_V4
         /// <returns> false if have error</returns>
         public bool UpdateDocumentWithNewUrl(String Url)
         {
+            
             if (!Lib.CheckUrl(Url))
             {
                 report += Environment.NewLine + " Url format not true";
@@ -214,6 +224,7 @@ namespace TaiTruyen_V4
                 return false;
             }
             document = GetDocumentByUrl(Url);
+            document.LoadHtml(document.DocumentNode.InnerHtml.Replace("--!>","-->"));
             if (document == null)
             {
                 report += Environment.NewLine + " document is null";
@@ -229,28 +240,36 @@ namespace TaiTruyen_V4
         /// <returns>false when have error</returns>
         public bool CheckInitSite() {
             String Check = GetContentInDocument(IndexOfArray_BookName);
-            if (Check.IndexOf(Web_Document.StrErro) >= 0)
+            Console.WriteLine("BookName: "+Check);
+            if (Check == null || Check.IndexOf(Web_Document.StrErro) >= 0)
             {
                 report += Environment.NewLine + " att BookName not true";
                 HaveError = true;
                 return false;
             }
-            Check = GetContentInDocument(IndexOfArray_ChapContent);
-            if (Check.IndexOf(Web_Document.StrErro) >= 0)
-            {
-                report += Environment.NewLine + " att ChapContentnot true";
-                HaveError = true;
-                return false;
-            }
+            
             Check = GetContentInDocument(IndexOfArray_ChapName);
-            if (Check.IndexOf(Web_Document.StrErro) >= 0)
+            Console.WriteLine("ChapName: " + Check);
+            if (Check==null||Check.IndexOf(Web_Document.StrErro) >= 0)
             {
                 report += Environment.NewLine + " att ChapName true";
                 HaveError = true;
                 return false;
             }
+            
+
+            Check = GetContentInDocument(IndexOfArray_ChapContent);
+            Console.WriteLine("ChapContent: " + Check);
+            if (Check == null|| Check.IndexOf(Web_Document.StrErro) >= 0)
+            {
+                report += Environment.NewLine + " att ChapContentnot true";
+                HaveError = true;
+                return false;
+            }
+            
             Check = GetContentInDocument(IndexOfArray_UrlNext);
-            if (Check.IndexOf(Web_Document.StrErro) >= 0)
+            Console.WriteLine("UrlNext: "+Check);
+            if (Check == null || Check.IndexOf(Web_Document.StrErro) >= 0)
             {
                 report += Environment.NewLine + " att UrlNext true";
                 HaveError = true;
@@ -346,10 +365,11 @@ namespace TaiTruyen_V4
         /// <param name="Type">bookname, chapname, url ....</param>
         /// <returns>String content</returns>
         public String GetContentInDocument(Int16 Type) {
+            
             Console.WriteLine("Get Content " + Type);
             Int16 index = Type;
             var temps = GetElements(document, type[index], attStrName[index]);
-
+            
             HtmlNode temp=null;
             String strReturn="";
             if (temps == null)
@@ -358,29 +378,43 @@ namespace TaiTruyen_V4
                 HaveError = true;
                 return StrErro+"  " + Type+" 1";
             }
+            
             switch (typeToGet[index]) {
                 case Web_Document.Get_With_Index:
+                    if (index >= indexInElement.Count()|| indexInElement[index]>=temps.Count())
+                    {
+                        Console.WriteLine("  ** ");
+                        return null;
+                    }
                     temp = temps[indexInElement[index]];
                     
                     break;
                 case Web_Document.Get_With_Value:
-                    foreach(var e in temps)
+                    if (attValueStrToCompare[index].Length >= 0)
                     {
-                        String value = GetValueOfElement(e, attTypeToCompare[index]);
-                        
-                        if (value.IndexOf(attValueStrToCompare[index]) >= 0) {
-                            temp = e;
-                            break;
-                        }
-                        
+                        foreach (var e in temps)
+                        {
+                            String value = GetValueOfElement(e, attTypeToCompare[index]);
 
+                            if (value.IndexOf(attValueStrToCompare[index]) >= 0)
+                            {
+                                temp = e;
+                                break;
+                            }
+
+
+                        }
+                    }
+                    else
+                    {
+                        temp = temps[0];
                     }
                     break;
                 default:
                     temp = null; 
                     break;
             }
-
+            
             if (temp != null)
             {
                 strReturn = GetValueOfElement(temp, attTypeToGetStr[index]);
@@ -391,6 +425,24 @@ namespace TaiTruyen_V4
                 report += Environment.NewLine + " att "+ Type+" not true";
                 HaveError = true;
                 return StrErro+ " " + Type + " 2";
+            }
+
+            switch (Type)
+            {
+                case IndexOfArray_UrlNext:
+                    {
+                        if (strReturn.IndexOf(HostStr) < 0)
+                        {
+                            strReturn = HostStr + strReturn;
+                        }
+                        break;
+                    }
+                case IndexOfArray_ChapContent:
+                    {
+                        strReturn = Lib.DecoderString(strReturn);
+                        strReturn = Lib.ProcessChapContent(strReturn);
+                        break;
+                    }
             }
             return strReturn;
         }

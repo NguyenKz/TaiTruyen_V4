@@ -16,6 +16,7 @@ namespace TaiTruyen_V4
         private Int16[] attTypeToCompare;
         private string[] strCompare;
         private Int16[] attTypeToGet;
+
         public HostTag()
         {
             type = new Int16[5];
@@ -30,9 +31,9 @@ namespace TaiTruyen_V4
 
         public override string ToString()
         {
-            return host;
+            return Host;
         }
-        public string Host { get => host; set => host = value; }
+        
         public short[] Type { get => type; set => type = value; }
         public string[] AttStrName { get => name; set => name = value; }
         public short[] TypeToGet { get => typeToGet; set => typeToGet = value; }
@@ -40,7 +41,7 @@ namespace TaiTruyen_V4
         public short[] AttTypeToCompare { get => attTypeToCompare; set => attTypeToCompare = value; }
         public string[] attValueStrToCompare { get => strCompare; set => strCompare = value; }
         public short[] AttTypeToGetStr { get => attTypeToGet; set => attTypeToGet = value; }
-     
+        public string Host { get => host; set => host = value; }
     }
 
     public class ListHost

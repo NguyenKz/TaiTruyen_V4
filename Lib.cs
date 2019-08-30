@@ -109,6 +109,143 @@ namespace TaiTruyen_V4
             }
             return null;
         }
+
+        public static String DecoderString(String str)
+        {
+            str=str.Replace("&Agrave;","À");
+            str=str.Replace("&Aacute;","Á");
+            str=str.Replace("&Acirc;","Â");
+            str=str.Replace("&Atilde;","Ã");
+            str=str.Replace("&Auml;","Ä");
+            str=str.Replace("&Aring;","Å");
+            str=str.Replace("&agrave;","à");
+            str=str.Replace("&aacute;","á");
+            str=str.Replace("&acirc;","â");
+            str=str.Replace("&atilde;","ã");
+            str=str.Replace("&auml;","ä");
+            str=str.Replace("&aring;","å");
+            str=str.Replace("&AElig;","Æ");
+            str=str.Replace("&aelig;","æ");
+            str=str.Replace("&szlig;","ß");
+            str=str.Replace("&Ccedil;","Ç");
+            str=str.Replace("&ccedil;","ç");
+            str=str.Replace("&Egrave;","È");
+            str=str.Replace("&Eacute;","É");
+            str=str.Replace("&Ecirc;","Ê");
+            str=str.Replace("&Euml;","Ë");
+            str=str.Replace("&egrave;","è");
+            str=str.Replace("&eacute;","é");
+            str=str.Replace("&ecirc;","ê");
+            str=str.Replace("&euml;","ë");
+            str=str.Replace("&#131;","ƒ");
+            str=str.Replace("&Igrave;","Ì");
+            str=str.Replace("&Iacute;","Í");
+            str=str.Replace("&Icirc;","Î");
+            str=str.Replace("&Iuml;","Ï");
+            str=str.Replace("&igrave;","ì");
+            str=str.Replace("&iacute;","í");
+            str=str.Replace("&icirc;","î");
+            str=str.Replace("&iuml;","ï");
+            str=str.Replace("&Ntilde;","Ñ");
+            str=str.Replace("&ntilde;","ñ");
+            str=str.Replace("&Ograve;","Ò");
+            str=str.Replace("&Oacute;","Ó");
+            str=str.Replace("&Ocirc;","Ô");
+            str=str.Replace("&Otilde;","Õ");
+            str=str.Replace("&Ouml;","Ö");
+            str=str.Replace("&ograve;","ò");
+            str=str.Replace("&oacute;","ó");
+            str=str.Replace("&ocirc;","ô");
+            str=str.Replace("&otilde;","õ");
+            str=str.Replace("&ouml;","ö");
+            str=str.Replace("&Oslash;","Ø");
+            str=str.Replace("&oslash;","ø");
+            str=str.Replace("&#140;","Œ");
+            str=str.Replace("&#156;","œ");
+            str=str.Replace("&#138;","Š");
+            str=str.Replace("&#154;","š");
+            str=str.Replace("&Ugrave;","Ù");
+            str=str.Replace("&Uacute;","Ú");
+            str=str.Replace("&Ucirc;","Û");
+            str=str.Replace("&Uuml;","Ü");
+            str=str.Replace("&ugrave;","ù");
+            str=str.Replace("&uacute;","ú");
+            str=str.Replace("&ucirc;","û");
+            str=str.Replace("&uuml;","ü");
+            str=str.Replace("&#181;","µ");
+            str=str.Replace("&#215;","×");
+            str=str.Replace("&Yacute;","Ý");
+            str=str.Replace("&#159;","Ÿ");
+            str=str.Replace("&yacute;","ý");
+            str=str.Replace("&yuml;","ÿ");
+            str=str.Replace("&#176;","°");
+            str=str.Replace("&#134;","†");
+            str=str.Replace("&#135;","‡");
+            str=str.Replace("&lt;","<");
+            str=str.Replace("&gt;",">");
+            str=str.Replace("&#177;","±");
+            str=str.Replace("&#171;","«");
+            str=str.Replace("&#187;","»");
+            str=str.Replace("&#191;","¿");
+            str=str.Replace("&#161;","¡");
+            str=str.Replace("&#183;","·");
+            str=str.Replace("&#149;","•");
+            str=str.Replace("&#153;","™");
+            str=str.Replace("&copy;","©");
+            str=str.Replace("&reg;","®");
+            str=str.Replace("&#167;","§");
+            str=str.Replace("&#182;","¶");
+            str = str.Replace("&quot;", "\"");
+            str = str.Replace("&nbsp;", " ");
+            return str;
+        }
+        /// <summary>
+        /// remove all tag in htlm
+        /// </summary>
+        /// <param name="chapContent">ex "<br>afdaads" =>"afdaads"  "</param>
+        /// <returns>string</returns>
+        public static String ProcessChapContent(String chapContent)
+        {
+            var index = CheckTag(chapContent);
+            while (index>=0)
+            {
+                index = CheckTag(chapContent);
+                if (index < 0)
+                {
+                    break;
+                }
+                string tag = "";
+                for (int i = index; i < chapContent.Length; i++)
+                {
+                    tag += chapContent[i];
+                    if (chapContent[i] == '>')
+                    {
+                        break;
+                    }
+                }
+                Console.WriteLine(tag+"   "+chapContent.Length);
+                chapContent = chapContent.Replace(tag,"{_*-+_}");
+            }
+            chapContent = chapContent.Replace("{_*-+_}","</p>"+Environment.NewLine+"<p>");
+            return chapContent;
+        }
+        /// <summary>
+        /// check string have tag html
+        /// </summary>
+        /// <param name="chapContent"> "<p> haha</p>" =>0</param>
+        /// <returns>-1: No tag</returns>
+        public static int CheckTag(String chapContent)
+        {
+            string[] list = { "<!--", "<!DOCTYPE", "<a", "<abbr", "<acronym", "<address", "<applet", "<area", "<article", "<aside", "<audio", "<b", "<base", "<basefont", "<bdo", "<big", "<blockquote", "<body", "<br>", "<button", "<canvas", "<caption", "<center", "<cite", "<code", "<col", "<colgroup", "<datalist", "<dd", "<del", "<dfn", "<div", "<dl", "<dt", "<em", "<embed", "<fieldset", "<figcaption", "<figure", "<font", "<footer", "<form", "<frame", "<frameset", "<head", "<header", "<h1>", "<h2>", "<h3>", "<h4>", "<h5>", "<h6>", "<hr", "<html", "<i", "<iframe", "<img", "<input", "<ins", "<kbd", "<label", "<legend", "<li", "<link", "<main", "<map", "<mark", "<meta", "<meter", "<nav", "<noscript", "<object", "<ol", "<optgroup", "<option", "<p", "<param", "<pre", "<progress", "<q", "<s", "<samp", "<script", "<section", "<select", "<small", "<source", "<span", "<strike", "<strong", "<style", "<sub", "<table", "<tbody", "<td", "<textarea", "<tfoot", "<th", "<thead", "<time", "<title", "<tr", "<u", "<ul", "<var", "<video", "<wbr", "</" };
+            for (int i = 0; i < list.Count(); i++) {
+                if (chapContent.IndexOf(list[i]) >= 0)
+                {
+                    return chapContent.IndexOf(list[i]);
+                }
+            } 
+            return -1;
+
+        }
         /// <summary>
         /// http://wikidich.com/ajkfdhakjs  => http://wikidich.com
         /// http::adfadfas  => "null"
@@ -124,7 +261,10 @@ namespace TaiTruyen_V4
                 return "null";
             }
             int index = 0;
-            string httpStr = "://";
+            string httpStr = "https://";
+            if (url.IndexOf(httpStr) < 0){
+                httpStr = "http://";
+            }
             String host = "";
             if (url.IndexOf("://") >= 0)
             {
@@ -159,7 +299,7 @@ namespace TaiTruyen_V4
                 }
             }
 
-            return host;
+            return httpStr+host;
         }
         /// <summary>
         /// Check url is true format

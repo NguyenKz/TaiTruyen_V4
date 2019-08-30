@@ -25,11 +25,18 @@ namespace TaiTruyen_V4
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ListHost listHost;
+        private Web_Document document;
         public MainWindow()
         {
             InitializeComponent();
+            document = new Web_Document(" ");
+            listHost = new ListHost();
+            listHost = Lib.LoadJsonFileToListHost(Web_Document.filePathJson);
+            document.IntListHost(listHost);
             
         }
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -38,20 +45,36 @@ namespace TaiTruyen_V4
                 return;
 
             }
-            
-            Web_Document dc = new Web_Document("hhh");
-            dc.InitBookName(Web_Document.Type_Class, "book-title", Web_Document.Get_With_Index, 0, 0," ", Web_Document.AttType_InnterText);
-            dc.InitChapName(Web_Document.Type_Class, "book-title", Web_Document.Get_With_Index, 1, 0, " ", Web_Document.AttType_InnterText);
-            dc.InitChapContent(Web_Document.Type_Id, "bookContentBody", Web_Document.Get_With_Index, 0, 0, " ", Web_Document.AttType_InnerHtml);
-            dc.InitUrlNext(Web_Document.Type_Class, "btn-bot", Web_Document.Get_With_Value,0,Web_Document.AttType_Style , "margin-left: 0.3rem; display: inline-block; margin-right: 1rem", Web_Document.AttType_Href);
 
-            dc.UpdateDocumentWithNewUrl(this.TextBox_UrlCurrent.Text);
-            if (dc.CheckInitSite())
+            //Web_Document dc = new Web_Document("hhh");
+            //dc.InitBookName(Web_Document.Type_Class, "book-title", Web_Document.Get_With_Index, 0, 0," ", Web_Document.AttType_InnterText);
+            //dc.InitChapName(Web_Document.Type_Class, "book-title", Web_Document.Get_With_Index, 1, 0, " ", Web_Document.AttType_InnterText);
+            //dc.InitChapContent(Web_Document.Type_Id, "bookContentBody", Web_Document.Get_With_Index, 0, 0, " ", Web_Document.AttType_InnerHtml);
+            //dc.InitUrlNext(Web_Document.Type_Class, "btn-bot", Web_Document.Get_With_Value,0,Web_Document.AttType_Style , "margin-left: 0.3rem; display: inline-block; margin-right: 1rem", Web_Document.AttType_Href);
+
+            //dc.UpdateDocumentWithNewUrl(this.TextBox_UrlCurrent.Text);
+            //if (dc.CheckInitSite())
+            //{
+            //    this.TextBox_Result.Text = dc.GetContentInDocument(Web_Document.IndexOfArray_BookName) + Environment.NewLine;
+            //    this.TextBox_Result.AppendText(dc.GetContentInDocument(Web_Document.IndexOfArray_ChapName) + Environment.NewLine);
+            //    this.TextBox_Result.AppendText(dc.GetContentInDocument(Web_Document.IndexOfArray_ChapContent) + Environment.NewLine);
+            //    this.TextBox_Result.AppendText(dc.GetContentInDocument(Web_Document.IndexOfArray_UrlNext) + Environment.NewLine);
+            //}
+            bool detect=document.DetectHost(this.TextBox_UrlCurrent.Text);
+            if (detect)
             {
-                this.TextBox_Result.Text = dc.GetContentInDocument(Web_Document.IndexOfArray_BookName) + Environment.NewLine;
-                this.TextBox_Result.AppendText(dc.GetContentInDocument(Web_Document.IndexOfArray_ChapName) + Environment.NewLine);
-                this.TextBox_Result.AppendText(dc.GetContentInDocument(Web_Document.IndexOfArray_ChapContent) + Environment.NewLine);
-                this.TextBox_Result.AppendText(dc.GetContentInDocument(Web_Document.IndexOfArray_UrlNext) + Environment.NewLine);
+
+                
+                document.UpdateDocumentWithNewUrl(this.TextBox_UrlCurrent.Text);
+                Console.WriteLine(document.HostStr);
+                if (document.CheckInitSite())
+                {
+                    
+                    this.TextBox_Result.Text = document.GetContentInDocument(Web_Document.IndexOfArray_BookName) + Environment.NewLine;
+                    this.TextBox_Result.AppendText(document.GetContentInDocument(Web_Document.IndexOfArray_ChapName) + Environment.NewLine);
+                    this.TextBox_Result.AppendText(document.GetContentInDocument(Web_Document.IndexOfArray_ChapContent) + Environment.NewLine);
+                    this.TextBox_Result.AppendText(document.GetContentInDocument(Web_Document.IndexOfArray_UrlNext) + Environment.NewLine);
+                }
             }
         }
 
@@ -71,54 +94,20 @@ namespace TaiTruyen_V4
 
 
 
-
-
-
-            ListHost hh = new ListHost();
-
-
-
-            HostTag test = new HostTag();
-            test.Host = "Wikidich";
-            test.Type = new Int16[] { Web_Document.Type_Class, Web_Document.Type_Class, Web_Document.Type_Id, Web_Document.Type_Class };
-            test.AttStrName = new string[] { "book-title", "book-title", "bookContentBody", "btn-bot" };
-            test.TypeToGet = new short[] { Web_Document.Get_With_Index, Web_Document.Get_With_Index, Web_Document.Get_With_Index, Web_Document.Get_With_Value };
-            test.IndexInElement = new short[] { 0, 1, 0, 0 };
-            test.AttTypeToCompare = new short[] { 0, 0, 0, Web_Document.AttType_Style };
-            test.attValueStrToCompare = new string[] { " ", " ", " ", "margin-left: 0.3rem; display: inline-block; margin-right: 1rem" };
-            test.AttTypeToGetStr = new short[] { Web_Document.AttType_InnterText, Web_Document.AttType_InnterText, Web_Document.AttType_InnerHtml, Web_Document.AttType_Href };
-            hh.tag.Add(test);
-
-         
-
-            test = new HostTag();
-            test.Host = "haha";
-            test.Type = new Int16[] { Web_Document.Type_Class, Web_Document.Type_Class, Web_Document.Type_Id, Web_Document.Type_Class };
-            test.AttStrName = new string[] { "dsafsd", "book-title", "bookContentBody", "btn-bot" };
-            test.TypeToGet = new short[] { Web_Document.Get_With_Index, Web_Document.Get_With_Index, Web_Document.Get_With_Index, Web_Document.Get_With_Value };
-            test.IndexInElement = new short[] { 0, 1, 0, 0 };
-            test.AttTypeToCompare = new short[] { 0, 0, 0, Web_Document.AttType_Style };
-            test.attValueStrToCompare = new string[] { " ", " ", " ", "margin-left: 0.3rem; display: inline-block; margin-right: 1rem" };
-            test.AttTypeToGetStr = new short[] { Web_Document.AttType_InnterText, Web_Document.AttType_InnterText, Web_Document.AttType_InnerHtml, Web_Document.AttType_Href };
-            hh.tag.Add(test);
-
-            Lib.WriteListHostToFile(hh,"host.json");
             
 
-            ListHost hhh = new ListHost();
-            hhh = Lib.LoadJsonFileToListHost("host.json");
-
-
-           // String ou= JsonConvert.SerializeObject(hhh, Formatting.Indented).ToString();
-
-
-            foreach (var aa in hhh.tag)
+            foreach (var aa in listHost.tag)
             {
                 this.TextBox_Result.Text += aa.Host + "  " + aa.AttStrName[0] + Environment.NewLine;
 
             }
         
 
+        }
+
+        private void TextBox_UrlCurrent_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
         }
     }
 }

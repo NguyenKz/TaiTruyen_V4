@@ -13,9 +13,9 @@
         <Label x:Name="label" Content="Type:" HorizontalAlignment="Left" Margin="26,78,0,0" VerticalAlignment="Top" Width="132"/>
         <Label x:Name="label_Copy" Content="Name:" HorizontalAlignment="Left" Margin="26,123,0,0" VerticalAlignment="Top" Width="132"/>
         <Label x:Name="label_Copy1" Content="Type to get:" HorizontalAlignment="Left" Margin="26,165,0,0" VerticalAlignment="Top" Width="132"/>
-        <TextBox x:Name="textBox_Index" HorizontalAlignment="Left" Height="23" Margin="163,209,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="254" Text="0"/>
+        <TextBox x:Name="textBox_Index" HorizontalAlignment="Left" Height="23" Margin="163,209,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="254" Text="0" KeyDown="TextBox_Index_KeyDown"/>
         <Label x:Name="label_Copy2" Content="Index:" HorizontalAlignment="Left" Margin="26,205,0,0" VerticalAlignment="Top" Width="132"/>
-        <TextBox x:Name="textBox_StrToCompare" HorizontalAlignment="Left" Height="23" Margin="163,273,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="254" Text="kl;j"/>
+        <TextBox x:Name="textBox_StrToCompare" HorizontalAlignment="Left" Height="23" Margin="163,273,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="254"/>
         <Label x:Name="label_Copy3" Content="Str compare:" HorizontalAlignment="Left" Margin="26,269,0,0" VerticalAlignment="Top" Width="132"/>
         <Label x:Name="label_Copy4" Content="Att Type Compare:" HorizontalAlignment="Left" Margin ="26,238,0,0" VerticalAlignment="Top" Width="132"/>
         <Label x:Name="label_Copy5" Content="Att Type Get:" HorizontalAlignment="Left" Margin="26,313,0,0" VerticalAlignment="Top" Width="132"/>
@@ -26,16 +26,16 @@
         <Label x:Name="label_Copy6" Content="Tag:" HorizontalAlignment="Left" Margin="26,41,0,0" VerticalAlignment="Top" Width="132"/>
         <ComboBox x:Name="comboBox_Tag" HorizontalAlignment="Left" Margin="163,45,0,0" VerticalAlignment="Top" Width="254" SelectionChanged="ComboBox_Copy3_SelectionChanged" SelectedIndex="0" DataContextChanged="ComboBox_Tag_DataContextChanged"/>
         <TextBox x:Name="TextBox_Result" Height="392" Margin="432,45,10,0" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="TextBox_Result_TextChanged"/>
-        <Button Content="Test" HorizontalAlignment="Left" Margin="26,348,0,0" VerticalAlignment="Top" Width="98" Click="Button_Click"/>
-        <TextBox x:Name="TextBox_Name" HorizontalAlignment="Left" Height="23" Margin="163,127,0,0" TextWrapping="Wrap" Text="book-title" VerticalAlignment="Top" Width="254"/>
+        <Button Content="Test" HorizontalAlignment="Left" Margin="26,339,0,0" VerticalAlignment="Top" Width="98" Click="Button_Click"/>
+        <TextBox x:Name="TextBox_Name" HorizontalAlignment="Left" Height="23" Margin="163,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="254"/>
         <TextBox x:Name="textBox_Url_Test" HorizontalAlignment="Left" Height="93" Margin="163,344,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="254" TextChanged="TextBox_Url_Test_TextChanged"/>
-        <Button x:Name="button_AddTag" Content="Add Tag" HorizontalAlignment="Left" Margin="26,371,0,0" VerticalAlignment="Top" Width="98" Click="Button_AddTag_Click"/>
-        <Button x:Name="button_AddTagToList" Content="Add Tag To List" HorizontalAlignment="Left" Margin="26,417,0,0" VerticalAlignment="Top" Width="98" Click="Button_AddTagToList_Click"/>
-        <Button x:Name="button_TestFullTag" Content="Test full tag" HorizontalAlignment="Left" Margin="26,396,0,0" VerticalAlignment="Top" Width="98" RenderTransformOrigin="0.573,0.3" Click="Button_TestFullTag_Click"/>
-        <Button x:Name="button_WriteJson" Content="Write" HorizontalAlignment="Left" Margin="26,442,0,0" VerticalAlignment="Top" Width="98" Click="Button_WriteJson_Click"/>
+        <Button x:Name="button_AddTag" Content="Add Tag" HorizontalAlignment="Left" Margin="26,364,0,0" VerticalAlignment="Top" Width="98" Click="Button_AddTag_Click"/>
+        <Button x:Name="button_AddTagToList" Content="Add Tag To List" HorizontalAlignment="Left" Margin="26,414,0,0" VerticalAlignment="Top" Width="98" Click="Button_AddTagToList_Click"/>
+        <Button x:Name="button_TestFullTag" Content="Test full tag" HorizontalAlignment="Left" Margin="26,389,0,0" VerticalAlignment="Top" Width="98" RenderTransformOrigin="0.573,0.3" Click="Button_TestFullTag_Click"/>
+        <Button x:Name="button_WriteJson" Content="Write" HorizontalAlignment="Left" Margin="26,439,0,0" VerticalAlignment="Top" Width="98" Click="Button_WriteJson_Click"/>
         <Label x:Name="label_Copy7" Content="Host:" HorizontalAlignment="Left" Margin="26,8,0,0" VerticalAlignment="Top" Width="132"/>
         <ComboBox x:Name="comboBox_Host" HorizontalAlignment="Left" Margin="163,12,0,0" VerticalAlignment="Top" Width="254" SelectedIndex="0" DataContextChanged="ComboBox_Tag_DataContextChanged" SelectionChanged="ComboBox_Host_SelectionChanged"/>
-        <Button x:Name="button_ViewFullHostTag" Content="View full hostTag" HorizontalAlignment="Left" Margin="26,467,0,0" VerticalAlignment="Top" Width="98" Click="Button_ViewFullHostTag_Click"/>
-        <Button x:Name="button_UpdateHost" Content="Update host" HorizontalAlignment="Left" Margin="26,492,0,0" VerticalAlignment="Top" Width="98" RenderTransformOrigin="-0.08,0.15" Click="Button_UpdateHost_Click"/>
+        <Button x:Name="button_ViewFullHostTag" Content="View full hostTag" HorizontalAlignment="Left" Margin="26,464,0,0" VerticalAlignment="Top" Width="98" Click="Button_ViewFullHostTag_Click"/>
+        <Button x:Name="button_UpdateHost" Content="Update host" HorizontalAlignment="Left" Margin="26,489,0,0" VerticalAlignment="Top" Width="98" RenderTransformOrigin="-0.08,0.15" Click="Button_UpdateHost_Click"/>
     </Grid>
 </Window>

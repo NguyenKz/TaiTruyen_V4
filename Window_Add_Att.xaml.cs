@@ -33,13 +33,13 @@ namespace TaiTruyen_V4
 
         ListHost listHost;
         HostTag TAG = new HostTag();
-        String filePathJson = "Host.json";
+        
         public Window_Add_Att()
         {
             InitializeComponent();
-            if (File.Exists(filePathJson))
+            if (File.Exists(Web_Document.filePathJson))
             {
-                listHost = Lib.LoadJsonFileToListHost(filePathJson);
+                listHost = Lib.LoadJsonFileToListHost(Web_Document.filePathJson);
                 Console.WriteLine("Data exits.");
             }
             else
@@ -156,7 +156,7 @@ namespace TaiTruyen_V4
 
             this.comboBox_Type.Items.Add(new ItemComboBox(Web_Document.Type_Class,"Class"));
             this.comboBox_Type.Items.Add(new ItemComboBox(Web_Document.Type_Id, "Id"));
-            this.comboBox_Type.Items.Add(new ItemComboBox(Web_Document.Type_Tag, "ListHost"));
+            this.comboBox_Type.Items.Add(new ItemComboBox(Web_Document.Type_Tag, "Tag"));
                                   
             this.comboBox_TypeToGet.Items.Add(new ItemComboBox(Web_Document.Get_With_Index, "IndexInElement"));
             this.comboBox_TypeToGet.Items.Add(new ItemComboBox(Web_Document.Get_With_Value, "Value"));
@@ -382,7 +382,7 @@ namespace TaiTruyen_V4
 
         private void Button_WriteJson_Click(object sender, RoutedEventArgs e)
         {
-            Lib.WriteListHostToFile(listHost, filePathJson);
+            Lib.WriteListHostToFile(listHost, Web_Document.filePathJson);
 
         }
 
@@ -409,6 +409,11 @@ namespace TaiTruyen_V4
             TAG = new HostTag();
             
             TAG.Host = Lib.GetHostInUrl(this.textBox_Url_Test.Text);
+        }
+
+        private void TextBox_Index_KeyDown(object sender, KeyEventArgs e)
+        {
+
         }
     }
     class ItemComboBox {
