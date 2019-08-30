@@ -1,5 +1,5 @@
 ﻿using System;
-using Newtonsoft.Json;
+//using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HtmlAgilityPack;
 using System.IO;
-using Nancy.Json;
+//using Nancy.Json;
 using System.Runtime.Serialization.Json;
 
 namespace TaiTruyen_V4
@@ -28,11 +28,12 @@ namespace TaiTruyen_V4
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (!Web_Document.CheckUrl(this.TextBox_UrlCurrent.Text))
+            if (!Lib.CheckUrl(this.TextBox_UrlCurrent.Text))
             {
                 return;
 
@@ -84,7 +85,7 @@ namespace TaiTruyen_V4
             test.TypeToGet = new short[] { Web_Document.Get_With_Index, Web_Document.Get_With_Index, Web_Document.Get_With_Index, Web_Document.Get_With_Value };
             test.IndexInElement = new short[] { 0, 1, 0, 0 };
             test.AttTypeToCompare = new short[] { 0, 0, 0, Web_Document.AttType_Style };
-            test.StrCompare = new string[] { " ", " ", " ", "margin-left: 0.3rem; display: inline-block; margin-right: 1rem" };
+            test.attValueStrToCompare = new string[] { " ", " ", " ", "margin-left: 0.3rem; display: inline-block; margin-right: 1rem" };
             test.AttTypeToGetStr = new short[] { Web_Document.AttType_InnterText, Web_Document.AttType_InnterText, Web_Document.AttType_InnerHtml, Web_Document.AttType_Href };
             hh.tag.Add(test);
 
@@ -97,15 +98,16 @@ namespace TaiTruyen_V4
             test.TypeToGet = new short[] { Web_Document.Get_With_Index, Web_Document.Get_With_Index, Web_Document.Get_With_Index, Web_Document.Get_With_Value };
             test.IndexInElement = new short[] { 0, 1, 0, 0 };
             test.AttTypeToCompare = new short[] { 0, 0, 0, Web_Document.AttType_Style };
-            test.StrCompare = new string[] { " ", " ", " ", "margin-left: 0.3rem; display: inline-block; margin-right: 1rem" };
+            test.attValueStrToCompare = new string[] { " ", " ", " ", "margin-left: 0.3rem; display: inline-block; margin-right: 1rem" };
             test.AttTypeToGetStr = new short[] { Web_Document.AttType_InnterText, Web_Document.AttType_InnterText, Web_Document.AttType_InnerHtml, Web_Document.AttType_Href };
             hh.tag.Add(test);
 
-            //Lib.WriteListHostToFile(hh,"host.json");
+            Lib.WriteListHostToFile(hh,"host.json");
             
 
             ListHost hhh = new ListHost();
             hhh = Lib.LoadJsonFileToListHost("host.json");
+
 
            // String ou= JsonConvert.SerializeObject(hhh, Formatting.Indented).ToString();
 

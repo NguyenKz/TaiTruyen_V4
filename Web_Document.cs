@@ -73,7 +73,7 @@ namespace TaiTruyen_V4
         /// <summary>
         /// "Chuong sau", "height: auto !important;", 1234, ....
         /// </summary>
-        private String[] attValue;
+        private String[] attValueStrToCompare;
         /// <summary>
         /// get with index or value
         /// </summary>
@@ -88,7 +88,7 @@ namespace TaiTruyen_V4
         /// 
         /// foreach(var e in temps){
         ///     String value=GetValueOfElement(e,attTypeToCompare[x]);   // ex: GetValue(e, attTypeToCompare[IndexOfArray_BookName])          (attTypeToCompare[IndexOfArray_BookName]=InnerText) ="Chuong sau";
-        ///     if (value.indexOf(attValue[x])>=0){    //ex: attValue[x] is style="height: auto !important;", value= "height: auto !important;"
+        ///     if (value.indexOf(attValueStrToCompare[x])>=0){    //ex: attValueStrToCompare[x] is style="height: auto !important;", value= "height: auto !important;"
         ///         temp=e;
         ///         break;
         ///     }
@@ -107,7 +107,16 @@ namespace TaiTruyen_V4
         /// Flag to check error
         /// </summary>
         public bool HaveError=false;
+        /// <summary>
+        /// get String document
+        /// </summary>
+        /// <returns>return "" if document ==null</returns>
+        public override string ToString()
+        {
+            if (this.document == null) return "";
 
+            return this.document.DocumentNode.InnerHtml;
+        }
         HtmlDocument document;
         public static HtmlWeb htmlWeb = new HtmlWeb()
         {
@@ -142,11 +151,13 @@ namespace TaiTruyen_V4
             typeToGet = new Int16[SizeOfArray];
             indexInElement = new Int16[SizeOfArray];
             attTypeToCompare = new Int16[SizeOfArray];
-            attValue = new String[SizeOfArray];
+            attValueStrToCompare = new String[SizeOfArray];
             attTypeToGetStr = new Int16[SizeOfArray];
             //strInfo = new string[SizeOfArray];
             HaveError = false;
         }
+
+
         /// <summary>
         /// detect host with url
         /// </summary>
@@ -155,7 +166,7 @@ namespace TaiTruyen_V4
 
         public bool DetectHost(String url) {
 
-            if (url.Length <= 0)
+            if (url==null)
             {
                 return false;
             }
@@ -169,18 +180,16 @@ namespace TaiTruyen_V4
             }
             foreach (var ee in ListHost.tag)
             {
+                Console.WriteLine("Host: "+ee.Host);
+                if (ee.Host == null)
+                {
+                    return false;
+                }
                 if (url.IndexOf(ee.Host) >= 0)
                 {
-                    for (int i = 0; i < 5; i++)
+                    for (Int16 i = 0; i < 4; i++)
                     {
-                        type[i] = ee.Type[i];
-                        attStrName[i] = ee.AttStrName[i];
-                        typeToGet[i] = ee.TypeToGet[i];
-                        indexInElement[i] = ee.IndexInElement[i];
-                        attTypeToCompare[i] = ee.AttTypeToCompare[i];
-                        attTypeToGetStr[i] = ee.AttTypeToGetStr[i];
-
-
+                        SetData(i, ee.Type[i], ee.AttStrName[i], ee.TypeToGet[i], ee.IndexInElement[i], ee.AttTypeToCompare[i], ee.attValueStrToCompare[i], ee.AttTypeToGetStr[i]);
                     }
                     return true;
                 }
@@ -189,6 +198,8 @@ namespace TaiTruyen_V4
 
             return false;
         }
+
+
         /// <summary>
         /// Update document with new url
         /// </summary>
@@ -196,7 +207,7 @@ namespace TaiTruyen_V4
         /// <returns> false if have error</returns>
         public bool UpdateDocumentWithNewUrl(String Url)
         {
-            if (!CheckUrl(Url))
+            if (!Lib.CheckUrl(Url))
             {
                 report += Environment.NewLine + " Url format not true";
                 HaveError = true;
@@ -323,7 +334,7 @@ namespace TaiTruyen_V4
             this.typeToGet[index] = TypeGet;
             this.indexInElement[index] = indexInElement;
             this.attTypeToCompare[index] = attType;
-            this.attValue[index] = attValue;
+            this.attValueStrToCompare[index] = attValue;
             this.attTypeToGetStr[index] = attTypeToGetStr;
 
         }
@@ -357,7 +368,7 @@ namespace TaiTruyen_V4
                     {
                         String value = GetValueOfElement(e, attTypeToCompare[index]);
                         
-                        if (value.IndexOf(attValue[index]) >= 0) {
+                        if (value.IndexOf(attValueStrToCompare[index]) >= 0) {
                             temp = e;
                             break;
                         }
@@ -384,27 +395,7 @@ namespace TaiTruyen_V4
             return strReturn;
         }
         
-        /// <summary>
-        /// Check url is true format
-        /// return true is true format
-        /// return flase is flase format
-        /// </summary>
-        /// <param name="url"> url to connect</param>
-        /// <returns>bool</returns>
-        public static bool CheckUrl(String url)
-        {
-            //Console.WriteLine("Check format url.");
-            Uri uriResult;
-            bool tryCreateResult = Uri.TryCreate(url, UriKind.Absolute, out uriResult);
-            if (tryCreateResult == true && uriResult != null)
-            {
-                //Console.WriteLine("     url is true format.");
-                return true;
-            }
-            //Console.WriteLine("     url is false format.");
-            return false;
-
-        }
+       
 
         /// <summary>
         /// Get content from url

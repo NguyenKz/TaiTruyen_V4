@@ -39,7 +39,7 @@ namespace TaiTruyen_V4
                 return false;
             }
 
-            
+            Console.WriteLine(outPut);
 
             WriteFile(filePath, outPut);
 
@@ -48,6 +48,139 @@ namespace TaiTruyen_V4
 
             return true;
             
+        }
+        /// <summary>
+        /// add hostTag to listHost
+        /// </summary>
+        /// <param name="listHost">listHost</param>
+        /// <param name="hostTag">hostTag</param>
+        /// <param name="Update">true= replace hostTag in listHost when hostTag exits in listhost</param>
+        /// <returns>false= add hostTag to listHost
+        /// true = Update hostTag in listHost (Update=true)
+        /// </returns>
+        public static bool UpdateHostTag(ListHost listHost,HostTag hostTag,bool Update) 
+        {
+            if (Lib.FindHostTagWithUrl(hostTag.Host, listHost) ==null)
+            {
+                listHost.tag.Add(hostTag);
+                return false;
+            }
+            if (Update)
+            {
+                for (int i = 0; i < listHost.tag.Count; i++)
+                {
+                    if (listHost.tag[i].Host.IndexOf(hostTag.Host) >= 0)
+                    {
+                        listHost.tag[i] = hostTag;
+                        break;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// find hostTag whit url
+        /// </summary>
+        /// <param name="url">url-ex:https://wikidich.com/truyen/xxxx  </param>
+        /// <param name="listhost"></param>
+        /// <returns> HostTag or null </returns>
+        public static HostTag FindHostTagWithUrl(String url,ListHost listhost)
+        {
+
+            if (listhost == null)
+            {
+                return null;
+            }
+            if (listhost.tag == null)
+            {
+                return null;
+            }
+            foreach (var ee in listhost.tag)
+            {
+                if (ee.Host != null)
+                {
+                    if (url.IndexOf(ee.Host) >= 0)
+                    {
+                        return ee;
+                    }
+                }
+            }
+            return null;
+        }
+        /// <summary>
+        /// http://wikidich.com/ajkfdhakjs  => http://wikidich.com
+        /// http::adfadfas  => "null"
+        /// </summary>
+        /// <param name="url">ex: http://wikidich.com/ajkfdhakjs </param>
+        /// <returns>ex:http://wikidich.com or "null"</returns>
+        public static String GetHostInUrl(String url)
+        {
+            if (url == null) return "null";
+            if (!Lib.CheckUrl(url))
+            {
+                
+                return "null";
+            }
+            int index = 0;
+            string httpStr = "://";
+            String host = "";
+            if (url.IndexOf("://") >= 0)
+            {
+
+                for (int i = url.IndexOf("://")+3 ; i < url.Length; i++)
+                {
+                    if (url[i] == '/')
+                    {
+
+                        index = i;
+                        break;
+                    }
+                    else
+                    {
+                        host += url[i];
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < url.Length; i++)
+                {
+                    if (url[i] == '/')
+                    {
+                        index = i;
+                        break;
+                    }
+                    else
+                    {
+                        host += url[i];
+                    }
+                }
+            }
+
+            return host;
+        }
+        /// <summary>
+        /// Check url is true format
+        /// return true is true format
+        /// return flase is flase format
+        /// </summary>
+        /// <param name="url"> url to connect</param>
+        /// <returns>bool</returns>
+        public static bool CheckUrl(String url)
+        {
+            //Console.WriteLine("Check format url.");
+            Uri uriResult;
+            bool tryCreateResult = Uri.TryCreate(url, UriKind.Absolute, out uriResult);
+            if (tryCreateResult == true && uriResult != null)
+            {
+                //Console.WriteLine("     url is true format.");
+                return true;
+            }
+            //Console.WriteLine("     url is false format.");
+            return false;
+
         }
         /// <summary>
         /// Load Json file To object ListHost
